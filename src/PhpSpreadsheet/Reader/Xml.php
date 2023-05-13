@@ -321,6 +321,10 @@ class Xml extends BaseReader
                         $columnWidth = $columnData_ss['Width'];
                         $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
                     }
+                    if (isset($columnData_ss['Hidden'])) {
+                        $columnHidden = (bool)(string)$columnData_ss['Hidden'];
+                        $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible(!$columnHidden);
+                    }
                     ++$columnID;
                 }
             }
@@ -461,6 +465,10 @@ class Xml extends BaseReader
                         if (isset($row_ss['Height'])) {
                             $rowHeight = $row_ss['Height'];
                             $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight((float) $rowHeight);
+                        }
+                        if (isset($row_ss['Hidden'])) {
+                            $rowHidden = (bool)(string)$row_ss['Hidden'];
+                            $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setVisible(!$rowHidden);
                         }
                     }
 
